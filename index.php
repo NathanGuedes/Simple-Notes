@@ -1,14 +1,15 @@
 <?php
 
 require_once 'functions.php';
+require 'Database.php';
 //require_once 'router.php';
 
-$dsn = 'mysql:host=localhost;port=3306;dbname=myapp;charset=utf8';
+$config = require 'configs.php';
+$db = new Database($config['database']);
 
-$db = new PDO($dsn, 'root', '');
-$stmt = $db->prepare('SELECT * FROM posts');
-$stmt->execute();
+$id = $_GET['id'];
+$sql = "SELECT * FROM posts where id= :id";
 
-$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$posts = $db->query($sql, ['id' => $id])->fetchAll();
 
 dd($posts);
