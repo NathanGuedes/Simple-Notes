@@ -13,6 +13,10 @@
                 </li>
             <?php endforeach; ?>
         </ul>
+
+        <p class="mt-6">
+            <a class="text-blue-600 hover:underline" href="/notes/create">Create Note</a>
+        </p>
     </div>
 
 </main>
