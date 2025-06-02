@@ -2,7 +2,8 @@
 
 class Database {
 
-    private $connection;
+    protected $connection;
+    protected $statement;
 
     function __construct($config, $user = 'root', $password = '') {
         $dsn = 'mysql:' . http_build_query($config,  '', ';');
@@ -14,9 +15,29 @@ class Database {
 
     function query($sql, $params = [])
     {
-        $statement = $this->connection->prepare($sql);
-        $statement->execute($params);
+        $this->statement = $this->connection->prepare($sql);
+        $this->statement->execute($params);
 
-        return $statement;
+        return $this;
+    }
+
+    public function get(){
+        return $this->statement->fetchAll();
+    }
+
+    public function find()
+    {
+        return $this->statement->fetch();
+    }
+
+    public function findOrFail()
+    {
+        $result = $this->find();
+
+        if (! $result) {
+            abort();
+        }
+
+        return $result;
     }
 }

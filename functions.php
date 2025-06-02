@@ -12,3 +12,10 @@ function isCurrentPage($uri)
 {
     return $_SERVER['REQUEST_URI'] === $uri;
 }
+
+function authorize($condition, $statusCode = Response::FORBIDDEN)
+{
+    if (! $condition) {
+        abort($statusCode);
+    }
+}
