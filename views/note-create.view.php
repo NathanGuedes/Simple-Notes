@@ -5,7 +5,6 @@
     <main>
         <form method="POST" class="mt-10 ml-15 mr-15">
             <div class="relative mb-6">
-
                 <div class="flex">
                     <div class="relative w-full">
                         <label for="body" class="flex  items-center mb-2 text-gray-600 text-sm font-medium">Body
