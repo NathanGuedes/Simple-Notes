@@ -16,9 +16,12 @@
                         </label>
                         <textarea
                                 class="block w-full h-40 px-4 py-2.5 text-base leading-7 font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-2xl placeholder-gray-400 focus:outline-none resize-none"
-                                id="body" name="body" placeholder="Write a note..."></textarea>
+                                id="body" name="body" placeholder="Write a note..."><?= $_POST['body'] ?? "" ?></textarea>
                     </div>
                 </div>
+                <?php if (! empty($errors['body'])) : ?>
+                    <p class="text-red-500 text-xs mt-2"><?= htmlspecialchars($errors['body']) ?></p>
+                <?php endif; ?>
             </div>
             <div class="flex space-x-4">
                 <button class="w-full h-12 bg-gray-600 hover:bg-gray-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6"
@@ -26,7 +29,6 @@
                     Save
                 </button>
             </div>
-
         </form>
     </main>
 
