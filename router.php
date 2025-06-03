@@ -1,9 +1,11 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 $routes = require 'routes.php';
 $uri = parse_url($_SERVER['REQUEST_URI'],  PHP_URL_PATH);
 
-function routerToControllers($uri, $routes)
+function routerToControllers($uri, $routes): void
 {
     if(array_key_exists($uri, $routes)) {
         require $routes[$uri];
@@ -12,7 +14,7 @@ function routerToControllers($uri, $routes)
     }
 }
 
-function abort($code = 404)
+#[NoReturn] function abort($code = 404) : void
 {
     http_response_code($code);
     require "views/{$code}.php";
