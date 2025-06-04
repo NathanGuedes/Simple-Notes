@@ -7,7 +7,7 @@
         <ul role="list" class="divide-y divide-gray-100">
             <?php foreach ($notes as $note): ?>
                 <li class="py-2">
-                    <a class="text-blue-600 hover:underline font-semibold block" href="/note?id=<?= $note['id'] ?>">
+                    <a class="text-gray-800 hover:underline font-semibold block" href="/note?id=<?= $note['id'] ?>">
                         <?= htmlspecialchars($note['body']) ?>
                     </a>
                 </li>
@@ -15,7 +15,7 @@
         </ul>
 
         <p class="mt-6">
-            <a class="text-blue-600 hover:underline" href="/notes/create">Create Note</a>
+            <a class="text-sx text-blue-600 hover:underline" href="/notes/create">Create Note</a>
         </p>
     </div>
 
