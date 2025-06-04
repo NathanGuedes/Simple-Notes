@@ -1,8 +1,12 @@
 <?php
 
+namespace Core;
+
+use PDO;
+
 class Database {
 
-    protected $connection;
+    protected PDO $connection;
     protected $statement;
 
     function __construct($config, $user = 'root', $password = '') {
@@ -13,7 +17,7 @@ class Database {
         ]);
     }
 
-    function query($sql, $params = [])
+    function query($sql, $params = []): static
     {
         $this->statement = $this->connection->prepare($sql);
         $this->statement->execute($params);
