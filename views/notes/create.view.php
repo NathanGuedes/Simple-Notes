@@ -4,7 +4,7 @@
 
     <main>
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <form method="POST" class="mt-10">
+            <form method="POST" class="mt-10" action="/notes">
                 <div class="relative mb-6">
                     <div class="flex">
                         <div class="relative w-full">
