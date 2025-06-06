@@ -10,7 +10,8 @@
                 <p class="font-semibold text-gray-800">
                     <?= nl2br(htmlspecialchars($note['body'])) ?>
                 </p>
-                <form method="POST" class="mt-6">
+                <a href="/note/edit?id=<?= $note['id'] ?>" class="text-sx text-black-500 hover:underline mt-6">Edit</a>
+                <form method="POST">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="id" value="<?=$note['id']?>">
                     <button class="text-sx text-red-500 hover:underline">Delete</button>
