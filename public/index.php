@@ -1,5 +1,6 @@
 <?php
 
+use Core\Container;
 use Core\Router;
 
 const BASE_PATH = __DIR__ . "/../";
@@ -11,6 +12,7 @@ spl_autoload_register(function ($class) {
     require base_path("{$class}.php");
 });
 
+require base_path("bootstrap.php");
 $router = new Router();
 
 $routes = require Base_path('routes.php');
