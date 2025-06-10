@@ -40,3 +40,12 @@ function view($path, $data = []) : void
     require base_path("views/{$code}.php");
     die();
 }
+
+function login($user) : void
+{
+    $_SESSION['user'] = [
+        'id' => $user['id'],
+        'name' => $user['name'],
+        'email' => $user['email']
+    ];
+}
