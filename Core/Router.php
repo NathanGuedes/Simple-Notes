@@ -2,24 +2,6 @@
 
 namespace Core;
 
-//use JetBrains\PhpStorm\NoReturn;
-//
-//$routes = require Base_path('routes.php');
-//$uri = parse_url($_SERVER['REQUEST_URI'],  PHP_URL_PATH);
-//
-//function routerToControllers($uri, $routes): void
-//{
-//    if(array_key_exists($uri, $routes)) {
-//        require base_path($routes[$uri]);
-//    }else {
-//        abort();
-//    }
-//}
-//
-
-//
-//routerToControllers($uri, $routes);
-
 class Router
 {
     protected array $routes = [];
@@ -29,35 +11,62 @@ class Router
         $requestMethod = strtoupper($requestMethod);
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $requestMethod) {
+                if ($route['middleware'] === 'auth') {
+                    if (! $_SESSION['user'] ?? false) {
+                        header('Location: /');
+                        exit();
+                    }
+                }
+
+                if ($route['middleware'] === 'guest') {
+                    if ($_SESSION['user'] ?? false) {
+                        header('Location: /');
+                        exit();
+                    }
+                }
+
                 return require Base_path($route['controller']);
             }
         }
         abort();
     }
 
-    public function add($method, $uri, $controller): void
+    public function only($key): static
     {
-        $this->routes[] = compact('method', 'uri', 'controller');
+        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+        return $this;
     }
 
-    function get($uri, $controller): void
+    public function add($method, $uri, $controller): static
     {
-        $this->add('GET', $uri, $controller);
+        $this->routes[] = [
+            'method' => $method,
+            'uri' => $uri,
+            'controller' => $controller,
+            'middleware' => null
+        ];
+
+        return $this;
     }
-    function post($uri, $controller): void
+
+    function get($uri, $controller)
     {
-        $this->add('POST', $uri, $controller);
+        return $this->add('GET', $uri, $controller);
     }
-    function delete($uri, $controller): void
+    function post($uri, $controller)
     {
-        $this->add('DELETE', $uri, $controller);
+        return $this->add('POST', $uri, $controller);
     }
-    function patch($uri, $controller): void
+    function delete($uri, $controller)
     {
-        $this->add('PATCH', $uri, $controller);
+        return $this->add('DELETE', $uri, $controller);
     }
-    function put($uri, $controller): void
+    function patch($uri, $controller)
     {
-        $this->add('PUT', $uri, $controller);
+        return $this->add('PATCH', $uri, $controller);
+    }
+    function put($uri, $controller)
+    {
+        return $this->add('PUT', $uri, $controller);
     }
 }
