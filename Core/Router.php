@@ -2,6 +2,10 @@
 
 namespace Core;
 
+use Core\Middleware\Auth;
+use Core\Middleware\Guest;
+use Core\Middleware\Middleware;
+
 class Router
 {
     protected array $routes = [];
@@ -11,20 +15,7 @@ class Router
         $requestMethod = strtoupper($requestMethod);
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $requestMethod) {
-                if ($route['middleware'] === 'auth') {
-                    if (! $_SESSION['user'] ?? false) {
-                        header('Location: /');
-                        exit();
-                    }
-                }
-
-                if ($route['middleware'] === 'guest') {
-                    if ($_SESSION['user'] ?? false) {
-                        header('Location: /');
-                        exit();
-                    }
-                }
-
+                Middleware::resolve($route['middleware']);
                 return require Base_path($route['controller']);
             }
         }
