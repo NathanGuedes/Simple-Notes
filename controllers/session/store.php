@@ -37,6 +37,8 @@ if ($user){
             'email' => $user['email']
         ]);
     }
+
+    header('Location: /');
 }
 
 view('session/create.view.php', [

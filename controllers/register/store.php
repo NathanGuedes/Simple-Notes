@@ -41,10 +41,6 @@ if ($user) {
         'password' => password_hash($password, PASSWORD_BCRYPT)
     ]);
 
-    $_SESSION['user'] = [
-        'name' => $name
-    ];
-
-    header('location: /');
+    header('location: /session/create');
     exit();
 }
