@@ -36,9 +36,10 @@ if ($user){
             'name' => $user['name'],
             'email' => $user['email']
         ]);
-    }
 
-    header('Location: /');
+        header('Location: /');
+        exit();
+    }
 }
 
 view('session/create.view.php', [
