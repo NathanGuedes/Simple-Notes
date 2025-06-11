@@ -10,13 +10,16 @@ class Router
 {
     protected array $routes = [];
 
+    /**
+     * @throws \Exception
+     */
     public function route($uri, $requestMethod)
     {
         $requestMethod = strtoupper($requestMethod);
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $requestMethod) {
                 Middleware::resolve($route['middleware']);
-                return require Base_path($route['controller']);
+                return require Base_path('Http/controllers/' . $route['controller']);
             }
         }
         abort();
